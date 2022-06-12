@@ -62,8 +62,9 @@
 
                 <TextView
                     android:text="Save"
+                    android:id="@+id/saveMealButton"
                     android:background="@color/colorDivider"
-                    android:textSize="16sp"
+                    android:textSize="26sp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/black"
@@ -73,7 +74,7 @@
                 <TextView
                     android:text="Delete"
                     android:background="@color/colorDivider"
-                    android:textSize="16sp"
+                    android:textSize="26sp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/black"

@@ -10,13 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pro.delicacy.adapters.CategoriesAdapter;
 import com.pro.delicacy.models.CategoriesResponse;
 import com.pro.delicacy.models.Category;
@@ -42,7 +46,7 @@ public class Delicacies extends AppCompatActivity {
     private CategoriesAdapter mAdapter;
 
     private DatabaseReference mSearchedMealReference;
-
+    private ValueEventListener mSearchedMealReferenceListner;
 //    public List<Category> categories;
 
     // implementing shared preferences.
@@ -56,6 +60,21 @@ public class Delicacies extends AppCompatActivity {
                 .getInstance()
                 .getReference()
                 .child(Credentials.FIREBASE_CHILD_SEARCHED_MEAL);
+
+        // adding an event listener.
+         mSearchedMealReferenceListner = mSearchedMealReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot mealSnapshot: snapshot.getChildren()){
+                    String meal = mealSnapshot.getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // for handling errors.
+            }
+        });
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delicacies);
@@ -147,5 +166,11 @@ public class Delicacies extends AppCompatActivity {
 
     private void hideProgressBar() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchedMealReference.removeEventListener(mSearchedMealReferenceListner);
     }
 }

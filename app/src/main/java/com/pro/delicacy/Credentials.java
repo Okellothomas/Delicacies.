@@ -11,4 +11,7 @@ public class Credentials {
 
         // define a child variable for firebase node.
         public static final String FIREBASE_CHILD_SEARCHED_MEAL = "searchedMeal";
+
+        // add meal node key variable
+        public static final String FIREBASE_CHILD_MEAL = "meal";
 }

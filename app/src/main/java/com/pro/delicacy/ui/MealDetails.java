@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.pro.delicacy.Credentials;
 import com.pro.delicacy.R;
 import com.pro.delicacy.models.Category;
 import com.pro.delicacy.models.Meal;
@@ -25,11 +29,12 @@ import butterknife.ButterKnife;
  * Use the {@link MealDetails#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MealDetails extends Fragment {
+public class MealDetails extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.mealImageView) ImageView mImageLabel;
     @BindView(R.id.mealNameTextView) TextView mNameLabel;
     @BindView(R.id.mealCategoryTextView) TextView mDescriptionLabel;
+    @BindView(R.id.saveMealButton) TextView saveMealButton;
 
 
     private Meal mMeal;
@@ -64,6 +69,20 @@ public class MealDetails extends Fragment {
         Picasso.get().load(mMeal.getStrMealThumb()).into(mImageLabel);
         mNameLabel.setText(mMeal.getStrMeal());
         mDescriptionLabel.setText(mMeal.getStrCategory());
+
+        saveMealButton.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == saveMealButton){
+            DatabaseReference mealRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Credentials.FIREBASE_CHILD_MEAL);
+
+            mealRef.push().setValue(mMeal);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 }

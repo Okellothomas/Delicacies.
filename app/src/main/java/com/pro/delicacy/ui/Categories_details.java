@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pro.delicacy.R;
 import com.pro.delicacy.models.Category;
 import com.squareup.picasso.Picasso;
@@ -24,11 +27,12 @@ import butterknife.ButterKnife;
  * Use the {@link Categories_details#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Categories_details extends Fragment {
+public class Categories_details extends Fragment  implements View.OnClickListener{
 
    @BindView(R.id.delicaciesImageView) ImageView mImageLabel;
    @BindView(R.id.delicaciesNameTextView) TextView mNameLabel;
    @BindView(R.id.delicaciesDescriptionTextView) TextView mDescriptionLabel;
+   @BindView(R.id.saveCategory) TextView mSaveCategory;
 
    private Category mCategory;
 
@@ -67,6 +71,19 @@ public class Categories_details extends Fragment {
         Picasso.get().load(mCategory.getStrCategoryThumb()).into(mImageLabel);
         mNameLabel.setText(mCategory.getStrCategory());
         mDescriptionLabel.setText(mCategory.getStrCategoryDescription());
+
+        mSaveCategory.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mSaveCategory){
+            DatabaseReference categoryRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference();
+            categoryRef.push().setValue(mCategory);
+            Toast.makeText(getContext(),"Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 }

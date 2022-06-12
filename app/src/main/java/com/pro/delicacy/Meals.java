@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +41,10 @@ public class Meals extends AppCompatActivity {
     private MealAdapter mealAdapter;
 
     public List<Meal> meals;
+
+//    private SharedPreferences mySharedPreferences;
+//    private String myLastMeal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,10 @@ public class Meals extends AppCompatActivity {
 
         Intent intent = getIntent();
         String meal = intent.getStringExtra("meal");
+
+//        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        myLastMeal = mySharedPreferences.getString(Credentials.PREFERENCE_MEAL_NAME, null);
+//        Log.d("Shared Pref Location", myLastMeal);
 
         DelicacyAPi client = DelicacyClient.getClient();
 

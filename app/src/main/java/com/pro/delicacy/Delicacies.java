@@ -1,7 +1,9 @@
 package com.pro.delicacy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pro.delicacy.adapters.CategoriesAdapter;
 import com.pro.delicacy.models.CategoriesResponse;
 import com.pro.delicacy.models.Category;
@@ -37,25 +41,65 @@ public class Delicacies extends AppCompatActivity {
 
     private CategoriesAdapter mAdapter;
 
+    private DatabaseReference mSearchedMealReference;
+
 //    public List<Category> categories;
+
+    // implementing shared preferences.
+//    private SharedPreferences mySharedPreference;
+//    private SharedPreferences.Editor myEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mSearchedMealReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Credentials.FIREBASE_CHILD_SEARCHED_MEAL);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delicacies);
         ButterKnife.bind(this);
+
+//        mySharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
+//        myEditor = mySharedPreference.edit();
 
         // the button and edittext fields.
         mealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                if (v == mealButton){
+//                    String meal = mEditMealName.getText().toString();
+//                    addToMySharedPreferences(meal);
+//                    Intent intent = new Intent(Delicacies.this, Meals.class);
+//                    startActivity(intent);
+//                }
                 // get user input
+
+
+                if (v == mealButton){
+                    String meal = mEditMealName.getText().toString();
+                    saveMealToFirebase(meal);
+                    // declare the intent variable.
+                    Intent intent = new Intent(Delicacies.this, Meals.class);
+                    startActivity(intent);
+
+                }
+
                 String meal = mEditMealName.getText().toString();
                 // declare the intent variable.
                 Intent intent = new Intent(Delicacies.this, Meals.class);
                 intent.putExtra("meal", meal);
                 startActivity(intent);
             }
+
+            public void saveMealToFirebase(String meal){
+                mSearchedMealReference.push().setValue(meal);
+            }
+//            private void addToMySharedPreferences(String meal) {
+//                myEditor.putString(Credentials.PREFERENCE_MEAL_NAME, meal).apply();
+//            }
         });
 
 
@@ -86,6 +130,7 @@ public class Delicacies extends AppCompatActivity {
             }
         });
     }
+
     private void showFailureMessage() {
         mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
         mErrorTextView.setVisibility(View.VISIBLE);

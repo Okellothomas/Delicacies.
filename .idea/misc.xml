@@ -10,8 +10,11 @@
         <entry key="app/src/main/res/layout/activity_delicacies_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_meals.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_my_meal_details.xml" value="0.11614583333333334" />
         <entry key="app/src/main/res/layout/delicacies_catogories_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_categories_details.xml" value="0.10104166666666667" />
+        <entry key="app/src/main/res/layout/fragment_meal_details.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/meals_categories_item.xml" value="0.19270833333333334" />
       </map>
     </option>
   </component>

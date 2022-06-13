@@ -26,16 +26,33 @@
             android:theme="@style/MyTheme"/>
         <activity
             android:name=".ui.SaveMealList"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pro.delicacy.Delicacies" />
+        </activity>
         <activity
             android:name=".MyMealDetails"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pro.delicacy.Delicacies" />
+        </activity>
         <activity
             android:name=".Meals"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pro.delicacy.Delicacies" />
+        </activity>
         <activity
             android:name=".CategoriesDetails"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pro.delicacy.Delicacies"
+                />
+        </activity>
         <activity
             android:name=".Delicacies"
             android:exported="false" />
@@ -45,7 +62,6 @@
             android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

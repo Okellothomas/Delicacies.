@@ -74,6 +74,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
         if (v == mLoginText){
             userLoggedIn();
+            ProgressBar();
         }
     }
 
@@ -93,6 +94,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        hidProgress();
                         if (!task.isSuccessful()){
                             Toast.makeText(login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
@@ -100,7 +102,12 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 });
     }
 
-
+    private void ProgressBar(){
+        mLoginProgress.setVisibility(View.VISIBLE);
+    }
+    private void hidProgress(){
+        mLoginProgress.setVisibility(View.GONE);
+    }
 
     @Override
     protected void onStart() {

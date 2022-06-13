@@ -149,18 +149,24 @@ public class Meals extends AppCompatActivity {
         call.enqueue(new Callback<NameResponse>() {
             @Override
             public void onResponse(Call<NameResponse> call, Response<NameResponse> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Meal> meals = response.body().getMeals();
-                    mealAdapter = new MealAdapter(mRecylerView.getContext(), meals);
-                    mRecylerView.setAdapter(mealAdapter);
-                    mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    mRecylerView.setHasFixedSize(true);
-                    showMeals();
-                    hideProgressBar();
-                } else {
-                    hideProgressBar();
-                    showUnsuccessfulMessage();
+                    if (meals != null) {
+                        mealAdapter = new MealAdapter(mRecylerView.getContext(), meals);
+                        mRecylerView.setAdapter(mealAdapter);
+                        mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        mRecylerView.setHasFixedSize(true);
+                        showMeals();
+                        hideProgressBar();
+                    } else {
+                        hideProgressBar();
+                        showUnsuccessfulMessage();
+                    }
                 }
+//                } else {
+//                    hideProgressBar();
+//                    showUnsuccessfulMessage();
+//                }
             }
 
             @Override

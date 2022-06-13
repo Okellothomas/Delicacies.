@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.pro.delicacy.Delicacies;
 import com.pro.delicacy.R;
 
 import butterknife.BindView;
@@ -23,12 +25,15 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
     public static final String TAG = login.class.getSimpleName();
 
+    private FirebaseAuth.AuthStateListener mAuthenticationListener;
+
     @BindView(R.id.registerNow) TextView mRegisterNow;
-    @BindView(R.id.passWord) EditText mPassWord;
-    @BindView(R.id.emailEdit) EditText mEmailEdit;
-    @BindView(R.id.loginText) TextView mLoginText;
+    @BindView(R.id.passwordEditText) EditText mPassWord;
+    @BindView(R.id.emailEditText) EditText mEmailEdit;
+    @BindView(R.id.passwordLogin) TextView mLoginText;
 
     private FirebaseAuth mAuthenticator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,19 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
         mAuthenticator = FirebaseAuth
                 .getInstance();
+
+        mAuthenticationListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user !=null){
+                    Intent intent = new Intent(login.this, Delicacies.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
 
         mRegisterNow.setOnClickListener(this);
         mLoginText.setOnClickListener(this);
@@ -77,5 +95,17 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuthenticator.addAuthStateListener(mAuthenticationListener);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        mAuthenticator.removeAuthStateListener(mAuthenticationListener);
     }
 }

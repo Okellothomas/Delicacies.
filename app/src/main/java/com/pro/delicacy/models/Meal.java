@@ -8,6 +8,8 @@ import org.parceler.Parcel;
 @Parcel
 public class Meal {
 
+    private String pushId;
+
     @SerializedName("idMeal")
     @Expose
     private String idMeal;
@@ -177,7 +179,7 @@ public class Meal {
 
     /**
      * 
-     * @param strImageSource
+//     * @param strImageSource
      * @param strIngredient10
      * @param strIngredient12
      * @param strIngredient11
@@ -189,9 +191,9 @@ public class Meal {
      * @param strIngredient18
      * @param strIngredient17
      * @param strArea
-     * @param strCreativeCommonsConfirmed
+//     * @param strCreativeCommonsConfirmed
      * @param strIngredient19
-     * @param strTags
+//     * @param strTags
      * @param idMeal
      * @param strInstructions
      * @param strIngredient1
@@ -212,8 +214,8 @@ public class Meal {
      * @param strMeasure13
      * @param strMeasure10
      * @param strMeasure11
-     * @param dateModified
-     * @param strDrinkAlternate
+//     * @param dateModified
+//     * @param strDrinkAlternate
      * @param strSource
      * @param strMeasure9
      * @param strMeasure7
@@ -1146,5 +1148,13 @@ public class Meal {
 
     public void setStrSource(String strSource) {
         this.strSource = strSource;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }

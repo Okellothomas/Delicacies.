@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pro.delicacy.Credentials;
@@ -39,9 +41,15 @@ public class SaveMealList extends AppCompatActivity {
         setContentView(R.layout.activity_meals);
         ButterKnife.bind(this);
 
+        FirebaseUser user = FirebaseAuth
+                .getInstance().getCurrentUser();
+        String uid = user.getUid();
+
         mMealReference = FirebaseDatabase
                 .getInstance()
-                .getReference(Credentials.FIREBASE_CHILD_MEAL);
+                .getReference(Credentials.FIREBASE_CHILD_MEAL)
+                .child(uid);
+
         setUpFireBaseAdapter();
         hideProgressBar();
         showMeals();

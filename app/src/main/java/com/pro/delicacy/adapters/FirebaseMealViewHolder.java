@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,9 +61,13 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
 
         final ArrayList<Meal> meals = new ArrayList<>();
 
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+
             DatabaseReference ref = FirebaseDatabase
                     .getInstance()
-                    .getReference(Credentials.FIREBASE_CHILD_MEAL);
+                    .getReference(Credentials.FIREBASE_CHILD_MEAL)
+                    .child(uid);
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pro.delicacy.Credentials;
@@ -77,11 +79,18 @@ public class MealDetails extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v == saveMealButton){
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
             DatabaseReference mealRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Credentials.FIREBASE_CHILD_MEAL);
+                    .getReference(Credentials.FIREBASE_CHILD_MEAL)
+                    .child(uid);
 
-            mealRef.push().setValue(mMeal);
+            DatabaseReference pushRef = mealRef.push();
+            String pushId = pushRef.getKey();
+            mMeal.setPushId(pushId);
+            pushRef.setValue(mMeal);
+//            mealRef.push().setValue(mMeal);
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }

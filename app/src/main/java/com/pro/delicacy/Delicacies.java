@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.pro.delicacy.ui.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.pro.delicacy.models.CategoriesResponse;
 import com.pro.delicacy.models.Category;
 import com.pro.delicacy.network.DelicacyAPi;
 import com.pro.delicacy.network.DelicacyClient;
+import com.pro.delicacy.ui.SaveMealList_ViewBinding;
 
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class Delicacies extends AppCompatActivity {
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
     @BindView(R.id.editeMealName) EditText mEditMealName;
     @BindView(R.id.mealButton) TextView mealButton;
+    @BindView(R.id.SavedButton) TextView savedButton;
 
     private CategoriesAdapter mAdapter;
 
@@ -106,6 +109,7 @@ public class Delicacies extends AppCompatActivity {
 
                 }
 
+
                 String meal = mEditMealName.getText().toString();
                 // declare the intent variable.
                 Intent intent = new Intent(Delicacies.this, Meals.class);
@@ -119,6 +123,14 @@ public class Delicacies extends AppCompatActivity {
 //            private void addToMySharedPreferences(String meal) {
 //                myEditor.putString(Credentials.PREFERENCE_MEAL_NAME, meal).apply();
 //            }
+        });
+
+        savedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Delicacies.this, SaveMealList.class);
+                startActivity(intent);
+            }
         });
 
 

@@ -1,5 +1,6 @@
 package com.pro.delicacy.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,7 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pro.delicacy.R;
 
@@ -52,6 +57,25 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void userLoggedIn() {
+        String email = mEmailEdit.getText().toString().trim();
+        String password = mPassWord.getText().toString().trim();
+        if (email.equals("")){
+            mEmailEdit.setError("Please enter your email");
+            return;
+        }
+        if (password.equals("")){
+            mPassWord.setError("Enter your Password");
+            return;
+        }
 
+        mAuthenticator.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

@@ -57,11 +57,7 @@ public class Delicacies extends AppCompatActivity {
 
     private DatabaseReference mSearchedMealReference;
     private ValueEventListener mSearchedMealReferenceListner;
-//    public List<Category> categories;
 
-    // implementing shared preferences.
-//    private SharedPreferences mySharedPreference;
-//    private SharedPreferences.Editor myEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,40 +108,9 @@ public class Delicacies extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                if (v == mealButton){
-//                    String meal = mEditMealName.getText().toString();
-//                    addToMySharedPreferences(meal);
-//                    Intent intent = new Intent(Delicacies.this, Meals.class);
-//                    startActivity(intent);
-//                }
-                // get user input
-
                 Intent intent = new Intent(Delicacies.this, Meals.class);
                 startActivity(intent);
 
-//                if (v == mealButton){
-//                    String meal = mEditMealName.getText().toString();
-//                    saveMealToFirebase(meal);
-//                    // declare the intent variable.
-//                    Intent intent = new Intent(Delicacies.this, Meals.class);
-//                    startActivity(intent);
-//
-//                }
-//
-//
-//                String meal = mEditMealName.getText().toString();
-//                // declare the intent variable.
-//                Intent intent = new Intent(Delicacies.this, Meals.class);
-//                intent.putExtra("meal", meal);
-//                startActivity(intent);
-//            }
-//
-//            public void saveMealToFirebase(String meal){
-//                mSearchedMealReference.push().setValue(meal);
-//            }
-////            private void addToMySharedPreferences(String meal) {
-//                myEditor.putString(Credentials.PREFERENCE_MEAL_NAME, meal).apply();
-//            }
             }
         });
 

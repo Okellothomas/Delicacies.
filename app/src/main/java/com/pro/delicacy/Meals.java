@@ -163,10 +163,6 @@ public class Meals extends AppCompatActivity {
                         showUnsuccessfulMessage();
                     }
                 }
-//                } else {
-//                    hideProgressBar();
-//                    showUnsuccessfulMessage();
-//                }
             }
 
             @Override

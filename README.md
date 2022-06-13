@@ -38,12 +38,17 @@ This android application is documented and designed around the behavior a user e
 - When a user open the application they will be prompted to wait as the app transition to the next layout with the content. 
 - Once the delicacies activity is opened the user will have a list of delicacies categories from where he or she can choose from. 
 - The user can click on a single category and have a list of food in that category listed for them.
+- User can as well search for their favorite meals and save them later for further exploration. 
+- User are allowed to create their account and login in whenever they want to access content of the application. 
+
 
 ## Technologies
 * XML
 * Java - Java is an OOP language used for both web design and mobile application designs.
 * Retrofit - enabling the application to consume an APi. 
 * Picasso - enabling the application to display images from the APi
+* Firebase - enabling realtime data storage and retreaval.
+* SharedPreferences - to enable systemic storage of crucial data. 
 
 # Licence
 MIT Licence

@@ -27,7 +27,6 @@ import com.pro.delicacy.models.CategoriesResponse;
 import com.pro.delicacy.models.Category;
 import com.pro.delicacy.network.DelicacyAPi;
 import com.pro.delicacy.network.DelicacyClient;
-import com.pro.delicacy.ui.SaveMealList_ViewBinding;
 
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class Delicacies extends AppCompatActivity {
     @BindView(R.id.recyclerView) RecyclerView mRecylerView;
     @BindView(R.id.errorTextView) TextView mErrorTextView;
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
-    @BindView(R.id.editeMealName) EditText mEditMealName;
     @BindView(R.id.mealButton) TextView mealButton;
     @BindView(R.id.SavedButton) TextView savedButton;
 
@@ -99,30 +97,33 @@ public class Delicacies extends AppCompatActivity {
 //                }
                 // get user input
 
-
-                if (v == mealButton){
-                    String meal = mEditMealName.getText().toString();
-                    saveMealToFirebase(meal);
-                    // declare the intent variable.
-                    Intent intent = new Intent(Delicacies.this, Meals.class);
-                    startActivity(intent);
-
-                }
-
-
-                String meal = mEditMealName.getText().toString();
-                // declare the intent variable.
                 Intent intent = new Intent(Delicacies.this, Meals.class);
-                intent.putExtra("meal", meal);
                 startActivity(intent);
-            }
 
-            public void saveMealToFirebase(String meal){
-                mSearchedMealReference.push().setValue(meal);
-            }
-//            private void addToMySharedPreferences(String meal) {
+//                if (v == mealButton){
+//                    String meal = mEditMealName.getText().toString();
+//                    saveMealToFirebase(meal);
+//                    // declare the intent variable.
+//                    Intent intent = new Intent(Delicacies.this, Meals.class);
+//                    startActivity(intent);
+//
+//                }
+//
+//
+//                String meal = mEditMealName.getText().toString();
+//                // declare the intent variable.
+//                Intent intent = new Intent(Delicacies.this, Meals.class);
+//                intent.putExtra("meal", meal);
+//                startActivity(intent);
+//            }
+//
+//            public void saveMealToFirebase(String meal){
+//                mSearchedMealReference.push().setValue(meal);
+//            }
+////            private void addToMySharedPreferences(String meal) {
 //                myEditor.putString(Credentials.PREFERENCE_MEAL_NAME, meal).apply();
 //            }
+            }
         });
 
         savedButton.setOnClickListener(new View.OnClickListener() {

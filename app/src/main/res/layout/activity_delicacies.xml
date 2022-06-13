@@ -13,24 +13,24 @@
     <RelativeLayout
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="45dp">
 
-        <EditText
-            android:id="@+id/editeMealName"
-            android:layout_width="190dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/button"
-            android:hint="@string/enter_meal"
-            android:textAlignment="center"
-            android:textColorHint="@color/white" />
+<!--        <EditText-->
+<!--            android:id="@+id/editeMealName"-->
+<!--            android:layout_width="190dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:background="@drawable/button"-->
+<!--            android:hint="@string/enter_meal"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColorHint="@color/white" />-->
 
         <TextView
             android:id="@+id/mealButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/secondbutton"
             android:gravity="center"
             android:text="+"
@@ -42,12 +42,12 @@
 
         <TextView
             android:id="@+id/SavedButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/secondbutton"
             android:gravity="center"
-            android:text="x"
+            android:text="-"
             android:layout_marginRight="20dp"
             android:textColor="@color/black"
             android:textAlignment="center"

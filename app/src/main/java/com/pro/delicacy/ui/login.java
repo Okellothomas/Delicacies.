@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth.AuthStateListener mAuthenticationListener;
 
+    @BindView(R.id.firebaseProgress) ProgressBar mLoginProgress;
+    @BindView(R.id.loadingText) TextView mLoadingText;
     @BindView(R.id.registerNow) TextView mRegisterNow;
     @BindView(R.id.passwordEditText) EditText mPassWord;
     @BindView(R.id.emailEditText) EditText mEmailEdit;
@@ -96,6 +99,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                     }
                 });
     }
+
+
 
     @Override
     protected void onStart() {

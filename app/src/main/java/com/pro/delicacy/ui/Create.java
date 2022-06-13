@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,11 +79,14 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+
     private void createAUser() {
         final String name = mNameEdit.getText().toString().trim();
         final String email = mEmailEdit.getText().toString().trim();
         String passWord = mPassWord.getText().toString().trim();
         String confirmPassWord = mConfirmPassWord.getText().toString().trim();
+
+        // implement the validation
 
         mAuthenticate.createUserWithEmailAndPassword(email, passWord)
                 .addOnCompleteListener(this, task -> {
@@ -93,6 +97,35 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
     }
+
+    private boolean isValidEmail(String email){
+        boolean validEmail = (email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!validEmail){
+            mEmailEdit.setError("Please enter a valid email address");
+            return false;
+        }
+        return validEmail;
+    }
+
+    private boolean isValidName(String name){
+        if (name.equals("")){
+            mNameEdit.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassWord(String password, String confirmPassword){
+        if (password.length()<6){
+            mPassWord.setError("Please create a password containing at 6 characters");
+            return false;
+        } else if (!password.equals(confirmPassword)){
+            mPassWord.setError("Passwords do not match");
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     protected void onStart(){

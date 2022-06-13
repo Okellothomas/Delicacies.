@@ -7,4 +7,63 @@
     tools:context=".ui.login"
     android:background="@drawable/login">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="40dp">
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button"
+            android:hint="@string/enter_your_email"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textColorHint="@color/black"
+            android:textSize="23sp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:background="@drawable/secondbutton"
+            android:hint="@string/enter_your_password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textSize="20sp"
+            android:textColorHint="@color/black"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="" />
+
+        <TextView
+            android:id="@+id/passwordLogin"
+            android:padding="10dp"
+            android:text="@string/log_in"
+            android:background="@drawable/mylogin"
+            android:layout_marginTop="10dp"
+            android:textSize="28sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/registerNow"
+            android:textColor="@color/white"
+            android:text="Have no account yet? sign up now!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

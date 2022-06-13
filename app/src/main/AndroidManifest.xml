@@ -17,10 +17,10 @@
         android:theme="@style/Theme.Delicacy"
         tools:targetApi="31">
         <activity
-            android:name=".Create"
+            android:name=".ui.Create"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name=".ui.login"
             android:exported="false" />
         <activity
             android:name=".ui.SaveMealList"

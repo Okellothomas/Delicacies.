@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pro.delicacy.ui.*;
 
 import androidx.annotation.NonNull;
@@ -97,7 +98,12 @@ public class Delicacies extends AppCompatActivity {
         mAuthenticateListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                // display welcome message here.
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName() + "!");
+                }else {
+
+                }
             }
         };
 

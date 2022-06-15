@@ -17,8 +17,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.pro.delicacy.Credentials;
 import com.pro.delicacy.R;
 import com.pro.delicacy.adapters.FirebaseMealListAdapter;
@@ -30,11 +30,10 @@ import com.pro.delicacy.util.SimpleItemTouchHelperCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.internal.Constants;
-import retrofit2.http.Query;
 
 public class SaveMealList extends AppCompatActivity implements OnStartDragListener {
 
-    private DatabaseReference mMealReference;
+    private com.google.firebase.database.Query mMealReference;
 //    private FirebaseRecyclerAdapter<Meal, FirebaseMealViewHolder> mFirebaseAdapter;
     private FirebaseMealListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
@@ -70,25 +69,30 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
                 .getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        Query query = (Query) FirebaseDatabase.getInstance()
-                .getReference(Credentials.FIREBASE_CHILD_MEAL)
+//        Query query = (Query) FirebaseDatabase.getInstance()
+//                .getReference(Credentials.FIREBASE_CHILD_MEAL)
+//                .child(uid)
+//                .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
+
+        Query query = FirebaseDatabase.getInstance().getReference(Credentials.FIREBASE_CHILD_MEAL)
                 .child(uid)
                 .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
 
 //        mMealReference = FirebaseDatabase
 //                .getInstance()
 //                .getReference(Credentials.FIREBASE_CHILD_MEAL)
-//                .child(uid);
+//                .child(uid)
+//                .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
 
 //        FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
 //                .setQuery(mMealReference, Meal.class)
 //                .build();
 
         FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
-                .setQuery((com.google.firebase.database.Query) query, Meal.class)
+                .setQuery(query, Meal.class)
                 .build();
 
-        mFirebaseAdapter = new FirebaseMealListAdapter(options, (DatabaseReference) query, this, this);
+        mFirebaseAdapter = new FirebaseMealListAdapter(options, query, this, this);
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));
         mRecylerView.setAdapter(mFirebaseAdapter);
         mRecylerView.setHasFixedSize(true);

@@ -2,6 +2,7 @@ package com.pro.delicacy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.pro.delicacy.MyMealDetails;
 import com.pro.delicacy.R;
 import com.pro.delicacy.models.Meal;
 import com.pro.delicacy.ui.MealDetails;
+import com.pro.delicacy.util.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -34,17 +36,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
     View mView;
     Context mContext;
-
+    private static final int MAX_WIDTH = 200;
+    private static final int MAX_HEIGHT = 200;
     public ImageView mMealImageView;
 
     public FirebaseMealViewHolder(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
+//        itemView.setOnClickListener(this);
     }
 
     public void bindMeal(Meal meal){
@@ -92,5 +95,26 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
                 }
             });
 
+    }
+
+    @Override
+    public void onItemSelected() {
+        Log.d("Animation", "onItemSelected");
+        // We will add animation here.
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(600);
+    }
+
+    @Override
+    public void onItemClear() {
+        Log.d("Animation", "onItemClear");
+        // We will add animation here.
+        itemView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f);
     }
 }

@@ -1,6 +1,7 @@
 package com.pro.delicacy.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,16 +16,21 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.pro.delicacy.MyMealDetails;
 import com.pro.delicacy.R;
 import com.pro.delicacy.models.Meal;
 import com.pro.delicacy.util.ItemTouchHelperAdapter;
 import com.pro.delicacy.util.OnStartDragListener;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, FirebaseMealViewHolder> implements ItemTouchHelperAdapter {
 
-    private DatabaseReference mRef;
+    private Query mRef;
     private OnStartDragListener mOnStartDragListiner;
     private Context mContext;
 
@@ -32,7 +38,7 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, Fireb
     private ArrayList<Meal> mMeals = new ArrayList<>();
 
 
-    public FirebaseMealListAdapter(@NonNull FirebaseRecyclerOptions<Meal> options, DatabaseReference mRef, OnStartDragListener mOnStartDragListiner, Context mContext) {
+    public FirebaseMealListAdapter(@NonNull FirebaseRecyclerOptions<Meal> options, Query mRef, OnStartDragListener mOnStartDragListiner, Context mContext) {
         super(options);
         this.mRef = mRef;
         this.mOnStartDragListiner = mOnStartDragListiner;
@@ -42,7 +48,7 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, Fireb
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                mMeals.add(snapshot.getValue(Meal.class));
             }
 
             @Override
@@ -80,6 +86,16 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, Fireb
                 return false;
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyMealDetails.class);
+                intent.putExtra("position", holder.getAdapterPosition());
+                intent.putExtra("meal", Parcels.wrap(mMeals));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
@@ -91,12 +107,34 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, Fireb
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(mMeals, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        setIndexInFirebase();
         return false;
     }
 
     @Override
     public void onItemDismiss(int position) {
+        mMeals.remove(position);
         getRef(position).removeValue();
     }
+
+    @Override
+    public void stopListening() {
+        super.stopListening();
+        mRef.removeEventListener(mChildEventListener);
+    }
+
+
+
+    private void setIndexInFirebase(){
+        for (Meal meal : mMeals){
+            int index = mMeals.indexOf(meal);
+            DatabaseReference reference = getRef(index);
+            meal.setIndex(Integer.toString(index));
+            reference.setValue(meal);
+        }
+    }
+
+
 }

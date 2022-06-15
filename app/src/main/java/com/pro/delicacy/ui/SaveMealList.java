@@ -29,6 +29,8 @@ import com.pro.delicacy.util.SimpleItemTouchHelperCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.internal.Constants;
+import retrofit2.http.Query;
 
 public class SaveMealList extends AppCompatActivity implements OnStartDragListener {
 
@@ -68,16 +70,25 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
                 .getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        mMealReference = FirebaseDatabase
-                .getInstance()
+        Query query = (Query) FirebaseDatabase.getInstance()
                 .getReference(Credentials.FIREBASE_CHILD_MEAL)
-                .child(uid);
+                .child(uid)
+                .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
+
+//        mMealReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference(Credentials.FIREBASE_CHILD_MEAL)
+//                .child(uid);
+
+//        FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
+//                .setQuery(mMealReference, Meal.class)
+//                .build();
 
         FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
-                .setQuery(mMealReference, Meal.class)
+                .setQuery((com.google.firebase.database.Query) query, Meal.class)
                 .build();
 
-        mFirebaseAdapter = new FirebaseMealListAdapter(options, mMealReference, (OnStartDragListener) this, this);
+        mFirebaseAdapter = new FirebaseMealListAdapter(options, (DatabaseReference) query, this, this);
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));
         mRecylerView.setAdapter(mFirebaseAdapter);
         mRecylerView.setHasFixedSize(true);
@@ -113,6 +124,12 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
         if (mFirebaseAdapter != null){
             mFirebaseAdapter.stopListening();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.stopListening();
     }
 
     private void showMeals() {

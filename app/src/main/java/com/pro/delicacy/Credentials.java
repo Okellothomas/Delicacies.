@@ -14,4 +14,7 @@ public class Credentials {
 
         // add meal node key variable
         public static final String FIREBASE_CHILD_MEAL = "meal";
+
+        // add the index variable
+        public static final String FIREBASE_QUERY_INDEX = "index";
 }

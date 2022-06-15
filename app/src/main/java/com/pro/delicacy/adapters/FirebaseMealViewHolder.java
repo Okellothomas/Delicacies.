@@ -1,5 +1,8 @@
 package com.pro.delicacy.adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -99,8 +102,7 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
 
     @Override
     public void onItemSelected() {
-        Log.d("Animation", "onItemSelected");
-        // We will add animation here.
+
         itemView.animate()
                 .alpha(0.7f)
                 .scaleX(0.8f)
@@ -110,8 +112,6 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
 
     @Override
     public void onItemClear() {
-        Log.d("Animation", "onItemClear");
-        // We will add animation here.
         itemView.animate()
                 .alpha(1f)
                 .scaleX(1f)

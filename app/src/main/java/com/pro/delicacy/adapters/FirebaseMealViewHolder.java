@@ -38,6 +38,8 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
     View mView;
     Context mContext;
 
+    public ImageView mMealImageView;
+
     public FirebaseMealViewHolder(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
@@ -47,7 +49,7 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
 
     public void bindMeal(Meal meal){
 
-            ImageView mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
+            mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
             TextView mMealName = (TextView) mView.findViewById(R.id.mealNameTextView);
             TextView mMealCategory = (TextView) mView.findViewById(R.id.mealCategoryTextView);
 

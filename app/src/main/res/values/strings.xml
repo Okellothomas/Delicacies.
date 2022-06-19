@@ -26,4 +26,5 @@
     <string name="enter_password">enter password</string>
     <string name="confirm_password">confirm Password</string>
     <string name="log_out">Log Out</string>
+    <string name="photo">Photo</string>
 </resources>

@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/menu/menu_logout.xml" value="0.12552083333333333" />
         <entry key="app/src/main/res/menu/menu_photo.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_search.xml" value="0.12708333333333333" />
+        <entry key="app/src/main/res/xml/file_paths.xml" value="0.125" />
       </map>
     </option>
   </component>

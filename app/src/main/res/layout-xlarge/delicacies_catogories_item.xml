@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="4dp"
+    android:paddingLeft="4dp"
+    android:layout_margin="1dp"
+    android:layout_marginBottom="5dp"
+    >
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:id="@+id/delicaciesImageView"
+        android:src="@drawable/delicacies"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delicaciesNameTextView"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:text="Restaurant Name"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="One Cuisine Type"
+            android:maxLines="2"
+            android:textSize="34sp"
+            android:id="@+id/delicaciesDescriptionTextView"
+            android:textStyle="italic"/>
+    </LinearLayout>
+
+
+</LinearLayout>

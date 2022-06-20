@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.MealDetails">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:id="@+id/mealImageView"
+                android:src="@drawable/delicacies"
+                android:scaleType="centerCrop"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:textSize="40sp"
+                    android:text="Category Name"
+                    android:id="@+id/mealNameTextView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/mealCategoryTextView"
+                    android:text="Category description"
+                    android:layout_below="@+id/mealNameTextView"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="38sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Save"
+                    android:id="@+id/saveMealButton"
+                    android:background="@drawable/mylogin"
+                    android:textSize="36sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/white"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Delete"
+                    android:background="@drawable/button"
+                    android:textSize="36sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/black"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

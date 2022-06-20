@@ -98,7 +98,7 @@ public class Meals extends AppCompatActivity {
         // i only used this activity for testing not for api consumption
 
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        myLastMeal = mySharedPreferences.getString(Credentials.PREFERENCE_MEAL_NAME, null);
+        myLastMeal = mySharedPreferences.getString(Credentials.PREFERENCE_MEAL_NAME, "chicken");
         if (myLastMeal != null){
             fetchMeal(myLastMeal);
         }

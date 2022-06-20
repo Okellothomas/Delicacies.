@@ -8,6 +8,20 @@
         <entry key="app/src/main/res/drawable/mylogin.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/secondbutton.xml" value="0.1395" />
         <entry key="app/src/main/res/font/akaya_telivigala.xml" value="0.15" />
+        <entry key="app/src/main/res/layout-land/activity_create.xml" value="0.13227513227513227" />
+        <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.16313932980599646" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.12125220458553791" />
+        <entry key="app/src/main/res/layout-large/activity_delicacies.xml" value="0.22" />
+        <entry key="app/src/main/res/layout-large/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-large/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-large/fragment_categories_details.xml" value="0.33" />
+        <entry key="app/src/main/res/layout-large/fragment_meal_details.xml" value="0.12125220458553791" />
+        <entry key="app/src/main/res/layout-port/activity_main.xml" value="0.14322916666666666" />
+        <entry key="app/src/main/res/layout-xlarge/activity_delicacies.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-xlarge/activity_login.xml" value="0.10040160642570281" />
+        <entry key="app/src/main/res/layout-xlarge/activity_main.xml" value="0.14453125" />
+        <entry key="app/src/main/res/layout-xlarge/fragment_categories_details.xml" value="0.107421875" />
+        <entry key="app/src/main/res/layout-xlarge/fragment_meal_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_categories_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_create.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_delicacies.xml" value="0.1" />
@@ -19,6 +33,7 @@
         <entry key="app/src/main/res/layout/delicacies_catogories_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_categories_details.xml" value="0.10104166666666667" />
         <entry key="app/src/main/res/layout/fragment_meal_details.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_mealt_list.xml" value="0.14427083333333332" />
         <entry key="app/src/main/res/layout/meals_categories_item.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/meals_categories_item_drag.xml" value="0.17" />
         <entry key="app/src/main/res/menu/menu_logout.xml" value="0.12552083333333333" />

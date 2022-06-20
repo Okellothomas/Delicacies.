@@ -1,14 +1,23 @@
 package com.pro.delicacy.ui;
 
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +40,13 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,6 +58,8 @@ import butterknife.ButterKnife;
 public class MealDetails extends Fragment implements View.OnClickListener{
 
     private static final int REQUEST_IMAGE_PICTURE = 111;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 11;
+    private String currentPhotoPath;
 
     @BindView(R.id.mealImageView) ImageView mImageLabel;
     @BindView(R.id.mealNameTextView) TextView mNameLabel;
@@ -79,6 +97,16 @@ public class MealDetails extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
         ButterKnife.bind(this, view);
+
+        if (!mMeal.getStrMealThumb().contains("http")){
+            Bitmap image = decodeFromFirebaseBase64(mMeal.getStrMealThumb());
+            mImageLabel.setImageBitmap(image);
+        } else {
+            Picasso.get()
+                    .load(mMeal.getStrMealThumb())
+                    .into(mImageLabel);
+        }
+
         Picasso.get().load(mMeal.getStrMealThumb()).into(mImageLabel);
         mNameLabel.setText(mMeal.getStrMeal());
         mDescriptionLabel.setText(mMeal.getStrCategory());
@@ -86,6 +114,25 @@ public class MealDetails extends Fragment implements View.OnClickListener{
         saveMealButton.setOnClickListener(this);
         return view;
     }
+
+    private static Bitmap decodeFromFirebaseBase64(String strMealThumb) {
+        byte[] decodeByte = android.util.Base64.decode(strMealThumb, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodeByte, 0, decodeByte.length);
+    }
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
+//        ButterKnife.bind(this, view);
+//        Picasso.get().load(mMeal.getStrMealThumb()).into(mImageLabel);
+//        mNameLabel.setText(mMeal.getStrMeal());
+//        mDescriptionLabel.setText(mMeal.getStrCategory());
+//
+//        saveMealButton.setOnClickListener(this);
+//        return view;
+//    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -97,7 +144,7 @@ public class MealDetails extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_photo:
-                onLaunchCamera();
+                onLaunchCameraclick();
             default:
                 break;
         }
@@ -107,21 +154,102 @@ public class MealDetails extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_IMAGE_PICTURE && resultCode == getActivity().RESULT_OK){
-            Bundle bundle = data.getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");
+            Toast.makeText(getContext(), "Image saved", Toast.LENGTH_LONG).show();
+
+            // For those saving their files in directories private to their apps
+            // addrestaurantPicsToGallery();
+            // Get the dimensions of the View.
+
+            int targetW = mImageLabel.getWidth()/3;
+            int targetH = mImageLabel.getHeight()/2;
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(currentPhotoPath,bmOptions);
+
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            //decode the image file into a Bitmap sized to fill the View.
+            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+//            bmOptions.inSampleSize = calculateInSampleSize(bmOptions, targetW, targetH);
+
+            bmOptions.inPurgeable = true;
+            bmOptions.inJustDecodeBounds = false;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath,bmOptions);
+
+//            Bundle bundle = data.getExtras();
+//            Bitmap bitmap = (Bitmap) bundle.get("data");
             mImageLabel.setImageBitmap(bitmap);
             encodeBitmapAndSaveToFirebase(bitmap);
         }
     }
 
+//    private int calculateInSampleSize(BitmapFactory.Options bmOptions, int targetW, int targetH) {
+//        return targetH;
+//    }
+
     private void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayInputStream =  new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayInputStream);
+        String encodedImage = Base64.encodeToString(byteArrayInputStream.toByteArray(), Base64.DEFAULT);
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference(Credentials.FIREBASE_CHILD_MEAL)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mMeal.getPushId())
+                .child("imageUrl");
+        reference.setValue(encodedImage);
+    }
+
+
+    private void onLaunchCameraclick() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            onLaunchCamera();
+        } else{
+            // let's request permission.getContext,getContext().
+            String[] permissionRequest = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE);
+        }
+//        Intent picture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (picture.resolveActivity(getActivity().getPackageManager()) != null){
+//            startActivityForResult(picture, REQUEST_IMAGE_PICTURE);
+//        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                onLaunchCamera();
+            }else {
+                Toast.makeText(getContext(), "Can't open the camera without permission", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void onLaunchCamera() {
-        Intent picture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (picture.resolveActivity(getActivity().getPackageManager()) != null){
-            startActivityForResult(picture, REQUEST_IMAGE_PICTURE);
-        }
+        Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", createImageFile());
+        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        // tell the camera to request write permissions.
+        takePicture.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivityForResult(takePicture, REQUEST_IMAGE_PICTURE);
+    }
+
+    private File createImageFile() {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "meal_JPG" + timeStamp + "_";
+        File storageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = new File(storageDirectory, imageFileName + ".jpg");
+
+        // save a file: path for use with ACTION_VIEW intents
+        String currentPhotoPath = image.getAbsolutePath();
+
+        return image;
     }
 
     @Override
@@ -142,4 +270,23 @@ public class MealDetails extends Fragment implements View.OnClickListener{
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        if (v == saveMealButton){
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            String uid = user.getUid();
+//            DatabaseReference mealRef = FirebaseDatabase
+//                    .getInstance()
+//                    .getReference(Credentials.FIREBASE_CHILD_MEAL)
+//                    .child(uid);
+//
+//            DatabaseReference pushRef = mealRef.push();
+//            String pushId = pushRef.getKey();
+//            mMeal.setPushId(pushId);
+//            pushRef.setValue(mMeal);
+////            mealRef.push().setValue(mMeal);
+//            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }

@@ -131,10 +131,19 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, Fireb
         for (Meal meal : mMeals){
             int index = mMeals.indexOf(meal);
             DatabaseReference reference = getRef(index);
-            meal.setIndex(Integer.toString(index));
-            reference.setValue(meal);
+            reference.child("index").setValue(Integer.toString(index));
+//            meal.setIndex(Integer.toString(index));
+//            reference.setValue(meal);
         }
     }
 
+//    private void setIndexInFirebase(){
+//        for (Meal meal : mMeals){
+//            int index = mMeals.indexOf(meal);
+//            DatabaseReference reference = getRef(index);
+//            meal.setIndex(Integer.toString(index));
+//            reference.setValue(meal);
+//        }
+//    }
 
 }

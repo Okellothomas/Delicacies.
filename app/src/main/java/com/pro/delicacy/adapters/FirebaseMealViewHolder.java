@@ -5,6 +5,9 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,14 +59,43 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
 
     public void bindMeal(Meal meal){
 
-            mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
-            TextView mMealName = (TextView) mView.findViewById(R.id.mealNameTextView);
-            TextView mMealCategory = (TextView) mView.findViewById(R.id.mealCategoryTextView);
+        mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
+        TextView mMealName = (TextView) mView.findViewById(R.id.mealNameTextView);
+        TextView mMealCategory = (TextView) mView.findViewById(R.id.mealCategoryTextView);
 
+        if (!meal.getStrMealThumb().contains("http")){
+            try {
+                Bitmap imageBit = decodeFromFirebaseBase64(meal.getStrMealThumb());
+                mMealImageView.setImageBitmap(imageBit);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        } else {
             Picasso.get().load(meal.getStrMealThumb()).into(mMealImageView);
             mMealName.setText(meal.getStrMeal());
             mMealCategory.setText(meal.getStrCategory());
         }
+            Picasso.get().load(meal.getStrMealThumb()).into(mMealImageView);
+            mMealName.setText(meal.getStrMeal());
+            mMealCategory.setText(meal.getStrCategory());
+        }
+
+    private static Bitmap decodeFromFirebaseBase64(String strMealThumb) throws IOException{
+        byte[] decodedByteArray = android.util.Base64.decode(strMealThumb, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+
+//    public void bindMeal(Meal meal){
+//
+//        mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
+//        TextView mMealName = (TextView) mView.findViewById(R.id.mealNameTextView);
+//        TextView mMealCategory = (TextView) mView.findViewById(R.id.mealCategoryTextView);
+//
+//        Picasso.get().load(meal.getStrMealThumb()).into(mMealImageView);
+//        mMealName.setText(meal.getStrMeal());
+//        mMealCategory.setText(meal.getStrCategory());
+//    }
 
         @Override
         public void onClick(View v) {

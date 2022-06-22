@@ -94,6 +94,7 @@ public class MealDetails extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
         ButterKnife.bind(this, view);
@@ -194,7 +195,8 @@ public class MealDetails extends Fragment implements View.OnClickListener{
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                && grantResults[1] == PackageManager.PERMISSION_GRANTED
                 onLaunchCamera();
             }else {
                 Toast.makeText(getContext(), "Can't open the camera without permission", Toast.LENGTH_LONG).show();

@@ -94,10 +94,14 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
         }
 
         if (v ==  mLandscape){
+            mPotrait.setVisibility(View.VISIBLE);
+            mLandscape.setVisibility(View.GONE);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
 
         if (v == mPotrait){
+            mPotrait.setVisibility(View.GONE);
+            mLandscape.setVisibility(View.VISIBLE);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }

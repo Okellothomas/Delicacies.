@@ -29,7 +29,7 @@
         <entry key="app/src/main/res/layout-xlarge/meals_categories_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout-xlarge/meals_categories_item_drag.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_categories_details.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_create.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_create.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_delicacies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_delicacies_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />

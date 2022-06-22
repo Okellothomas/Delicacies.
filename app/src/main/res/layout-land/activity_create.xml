@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.Create">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
     <ImageView
         android:src="@drawable/create"
         android:scaleType="centerCrop"
@@ -121,6 +121,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:visibility="gone"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:gravity="center"
@@ -152,6 +153,6 @@
 
     </LinearLayout>
 
-    </ScrollView>
+<!--    </ScrollView>-->
 
 </RelativeLayout>

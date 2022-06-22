@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layoutAnimation="@anim/first_layout_animation"
             android:visibility="gone" />
 
         <ProgressBar

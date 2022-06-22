@@ -5,7 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Create"
-    android:background="@drawable/create">
+    >
+
+    <ImageView
+        android:src="@drawable/create"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -110,6 +116,36 @@
             android:text="Have an Account Already? Login Now!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="90dp">
+
+            <TextView
+                android:background="@drawable/button"
+                android:text="Landscape"
+                android:id="@+id/landscape"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:background="@drawable/button"
+                android:text="Potrait"
+                android:id="@+id/potrait"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="50dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 

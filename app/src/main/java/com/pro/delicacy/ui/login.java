@@ -1,9 +1,11 @@
 package com.pro.delicacy.ui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.pro.delicacy.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 public class login extends AppCompatActivity implements View.OnClickListener{
 
@@ -34,9 +37,10 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     @BindView(R.id.passwordEditText) EditText mPassWord;
     @BindView(R.id.emailEditText) EditText mEmailEdit;
     @BindView(R.id.passwordLogin) TextView mLoginText;
+    @BindView(R.id.landscape) TextView mLandscape;
+    @BindView(R.id.potrait) TextView mPotrait;
 
     private FirebaseAuth mAuthenticator;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +66,15 @@ public class login extends AppCompatActivity implements View.OnClickListener{
 
         mRegisterNow.setOnClickListener(this);
         mLoginText.setOnClickListener(this);
+        mPotrait.setOnClickListener(this);
+        mLandscape.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == mRegisterNow){
             Intent intent = new Intent(login.this, Create.class);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             startActivity(intent);
             finish();
         }
@@ -75,6 +82,18 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         if (v == mLoginText){
             userLoggedIn();
             ProgressBar();
+        }
+
+        if (v == mLandscape){
+            mPotrait.setVisibility(View.VISIBLE);
+            mLandscape.setVisibility(View.GONE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
+        if (v == mPotrait){
+            mPotrait.setVisibility(View.GONE);
+            mLandscape.setVisibility(View.VISIBLE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 

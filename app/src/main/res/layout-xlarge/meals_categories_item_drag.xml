@@ -8,12 +8,26 @@
     android:layout_margin="1dp"
     android:layout_marginBottom="5dp">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="230dp"
-        android:id="@+id/mealImageView"
-        android:src="@drawable/delicacies"
-        android:scaleType="centerCrop"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="240dp"
+            android:id="@+id/mealImageView"
+            android:src="@drawable/delicacies"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/dragIcon"
+            android:layout_alignLeft="@+id/mealImageView"
+            android:layout_alignBottom="@+id/mealImageView"
+            android:gravity="bottom|left"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_reorder_24"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mealNameTextView"
-            android:textSize="48sp"
+            android:textSize="50sp"
             android:textStyle="bold"
             android:text="Meal Name"
             android:textColor="@color/colorPrimary"/>
@@ -36,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Meal category"
             android:maxLines="2"
-            android:textSize="45sp"
+            android:textSize="40sp"
             android:id="@+id/mealCategoryTextView"
             android:textStyle="italic"/>
     </LinearLayout>

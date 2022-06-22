@@ -2,6 +2,7 @@ package com.pro.delicacy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pro.delicacy.CategoriesDetails;
@@ -69,6 +72,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.mealViewHolder
             mContext = itemView.getContext();
             itemView.setOnClickListener(this);
         }
+
 
         public void bindMeal(Meal meal){
             Picasso.get().load(meal.getStrMealThumb()).into(mMealImageView);

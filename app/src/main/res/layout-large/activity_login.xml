@@ -83,8 +83,40 @@
             android:layout_marginTop="30dp"
             android:text="Have no account yet? sign up now!"
             android:textColor="@color/white"
-            android:textSize="50sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <TextView
+                android:background="@drawable/button"
+                android:text="Landscape"
+                android:textSize="18sp"
+                android:id="@+id/landscape"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:background="@drawable/button"
+                android:text="Potrait"
+                android:textSize="18sp"
+                android:id="@+id/potrait"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_width="200dp"
+                android:layout_height="50dp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

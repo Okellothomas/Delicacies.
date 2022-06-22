@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -42,6 +43,8 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.loginText) TextView mLoginText;
     @BindView(R.id.firebaseProgress) ProgressBar mMyProgessBar;
     @BindView(R.id.loginProgressText) TextView mloadingMessage;
+    @BindView(R.id.landscape) TextView mLandscape;
+    @BindView(R.id.potrait) TextView mPotrait;
 
     private String mName;
 
@@ -53,6 +56,8 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
 
         mLoginText.setOnClickListener(this);
         mCreateUser.setOnClickListener(this);
+        mLandscape.setOnClickListener(this);
+        mPotrait.setOnClickListener(this);
 
         mAuthenticate = FirebaseAuth
                 .getInstance();
@@ -79,12 +84,21 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == mLoginText){
             Intent intent = new Intent(Create.this, login.class);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
         if (v == mCreateUser){
             createAUser();
+        }
+
+        if (v ==  mLandscape){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
+        if (v == mPotrait){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 

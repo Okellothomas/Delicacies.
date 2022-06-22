@@ -86,17 +86,6 @@ public class FirebaseMealViewHolder extends RecyclerView.ViewHolder implements V
     }
 
 
-//    public void bindMeal(Meal meal){
-//
-//        mMealImageView = (ImageView) mView.findViewById(R.id.mealImageView);
-//        TextView mMealName = (TextView) mView.findViewById(R.id.mealNameTextView);
-//        TextView mMealCategory = (TextView) mView.findViewById(R.id.mealCategoryTextView);
-//
-//        Picasso.get().load(meal.getStrMealThumb()).into(mMealImageView);
-//        mMealName.setText(meal.getStrMeal());
-//        mMealCategory.setText(meal.getStrCategory());
-//    }
-
         @Override
         public void onClick(View v) {
 

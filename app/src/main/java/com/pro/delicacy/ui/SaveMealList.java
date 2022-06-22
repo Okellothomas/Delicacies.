@@ -34,7 +34,6 @@ import butterknife.internal.Constants;
 public class SaveMealList extends AppCompatActivity implements OnStartDragListener {
 
     private com.google.firebase.database.Query mMealReference;
-//    private FirebaseRecyclerAdapter<Meal, FirebaseMealViewHolder> mFirebaseAdapter;
     private FirebaseMealListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
@@ -49,14 +48,6 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
         setContentView(R.layout.activity_meals);
         ButterKnife.bind(this);
 
-//        FirebaseUser user = FirebaseAuth
-//                .getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//
-//        mMealReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference(Credentials.FIREBASE_CHILD_MEAL)
-//                .child(uid);
 
         setUpFireBaseAdapter();
         hideProgressBar();
@@ -69,24 +60,12 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
                 .getInstance().getCurrentUser();
         String uid = user.getUid();
 
-//        Query query = (Query) FirebaseDatabase.getInstance()
-//                .getReference(Credentials.FIREBASE_CHILD_MEAL)
-//                .child(uid)
-//                .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
 
         Query query = FirebaseDatabase.getInstance().getReference(Credentials.FIREBASE_CHILD_MEAL)
                 .child(uid)
                 .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
 
-//        mMealReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference(Credentials.FIREBASE_CHILD_MEAL)
-//                .child(uid)
-//                .orderByChild(Credentials.FIREBASE_QUERY_INDEX);
 
-//        FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
-//                .setQuery(mMealReference, Meal.class)
-//                .build();
 
         FirebaseRecyclerOptions<Meal> options = new FirebaseRecyclerOptions.Builder<Meal>()
                 .setQuery(query, Meal.class)
@@ -100,20 +79,6 @@ public class SaveMealList extends AppCompatActivity implements OnStartDragListen
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecylerView);
 
-
-//        mFirebaseAdapter = new FirebaseRecyclerAdapter<Meal, FirebaseMealViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull FirebaseMealViewHolder holder, int position, @NonNull Meal model) {
-//                holder.bindMeal(model);
-//            }
-//
-//            @NonNull
-//            @Override
-//            public FirebaseMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meals_categories_item_drag, parent, false);
-//                return new FirebaseMealViewHolder(view);
-//            }
-//        };
     }
 
     @Override

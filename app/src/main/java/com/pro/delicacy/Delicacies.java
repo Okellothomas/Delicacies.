@@ -86,8 +86,6 @@ public class Delicacies extends AppCompatActivity {
         setContentView(R.layout.activity_delicacies);
         ButterKnife.bind(this);
 
-//        mySharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-//        myEditor = mySharedPreference.edit();
 
         mAuthentication = FirebaseAuth
                 .getInstance();

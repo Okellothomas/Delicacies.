@@ -58,45 +58,6 @@ public class Meals extends AppCompatActivity {
         setContentView(R.layout.activity_meals);
         ButterKnife.bind(this);
 
-//        Intent intent = getIntent();
-//        String meal = intent.getStringExtra("meal");
-
-//        mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        myLastMeal = mySharedPreferences.getString(Credentials.PREFERENCE_MEAL_NAME, null);
-//        Log.d("Shared Pref Location", myLastMeal);
-
-//        DelicacyAPi client = DelicacyClient.getClient();
-//
-//        Call<NameResponse> call = client.mealNames(meal);
-//
-//        call.enqueue(new Callback<NameResponse>() {
-//            @Override
-//            public void onResponse(Call<NameResponse> call, Response<NameResponse> response) {
-//                if (response.isSuccessful()){
-//                    List<Meal> meals = response.body().getMeals();
-//                    mealAdapter = new MealAdapter(mRecylerView.getContext(), meals);
-//                    mRecylerView.setAdapter(mealAdapter);
-//                    mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//                    mRecylerView.setHasFixedSize(true);
-//                    showMeals();
-//                    hideProgressBar();
-//                } else {
-//                    hideProgressBar();
-//                    showUnsuccessfulMessage();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NameResponse> call, Throwable t) {
-//                hideProgressBar();
-//                showFailureMessage();
-//            }
-//        });
-
-        // I only implemented one api endpoint but will implement this soon i thought the ip only required
-        // implementation of one api end point. if this one is needed as apart of the Ip let me know.
-        // i only used this activity for testing not for api consumption
-
         mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         myLastMeal = mySharedPreferences.getString(Credentials.PREFERENCE_MEAL_NAME, "chicken");
         if (myLastMeal != null){

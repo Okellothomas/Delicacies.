@@ -43,8 +43,6 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.loginText) TextView mLoginText;
     @BindView(R.id.firebaseProgress) ProgressBar mMyProgessBar;
     @BindView(R.id.loginProgressText) TextView mloadingMessage;
-    @BindView(R.id.landscape) TextView mLandscape;
-    @BindView(R.id.potrait) TextView mPotrait;
 
     private String mName;
 
@@ -56,8 +54,6 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
 
         mLoginText.setOnClickListener(this);
         mCreateUser.setOnClickListener(this);
-        mLandscape.setOnClickListener(this);
-        mPotrait.setOnClickListener(this);
 
         mAuthenticate = FirebaseAuth
                 .getInstance();
@@ -93,17 +89,6 @@ public class Create extends AppCompatActivity implements View.OnClickListener {
             createAUser();
         }
 
-        if (v ==  mLandscape){
-            mPotrait.setVisibility(View.VISIBLE);
-            mLandscape.setVisibility(View.GONE);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-
-        if (v == mPotrait){
-            mPotrait.setVisibility(View.GONE);
-            mLandscape.setVisibility(View.VISIBLE);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
     }
 
     private void ProgressBar(){

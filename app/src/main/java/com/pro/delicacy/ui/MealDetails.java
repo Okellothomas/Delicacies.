@@ -120,20 +120,6 @@ public class MealDetails extends Fragment implements View.OnClickListener{
         return BitmapFactory.decodeByteArray(decodeByte, 0, decodeByte.length);
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
-//        ButterKnife.bind(this, view);
-//        Picasso.get().load(mMeal.getStrMealThumb()).into(mImageLabel);
-//        mNameLabel.setText(mMeal.getStrMeal());
-//        mDescriptionLabel.setText(mMeal.getStrCategory());
-//
-//        saveMealButton.setOnClickListener(this);
-//        return view;
-//    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -156,9 +142,6 @@ public class MealDetails extends Fragment implements View.OnClickListener{
         if (requestCode == REQUEST_IMAGE_PICTURE && resultCode == getActivity().RESULT_OK){
             Toast.makeText(getContext(), "Image saved", Toast.LENGTH_LONG).show();
 
-            // For those saving their files in directories private to their apps
-            // addrestaurantPicsToGallery();
-            // Get the dimensions of the View.
 
             int targetW = mImageLabel.getWidth()/3;
             int targetH = mImageLabel.getHeight()/2;
@@ -171,25 +154,18 @@ public class MealDetails extends Fragment implements View.OnClickListener{
             int photoW = bmOptions.outWidth;
             int photoH = bmOptions.outHeight;
 
-            //decode the image file into a Bitmap sized to fill the View.
             int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-//            bmOptions.inSampleSize = calculateInSampleSize(bmOptions, targetW, targetH);
+
 
             bmOptions.inPurgeable = true;
             bmOptions.inJustDecodeBounds = false;
 
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath,bmOptions);
 
-//            Bundle bundle = data.getExtras();
-//            Bitmap bitmap = (Bitmap) bundle.get("data");
             mImageLabel.setImageBitmap(bitmap);
             encodeBitmapAndSaveToFirebase(bitmap);
         }
     }
-
-//    private int calculateInSampleSize(BitmapFactory.Options bmOptions, int targetW, int targetH) {
-//        return targetH;
-//    }
 
     private void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayInputStream =  new ByteArrayOutputStream();
@@ -212,10 +188,6 @@ public class MealDetails extends Fragment implements View.OnClickListener{
             String[] permissionRequest = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
             requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE);
         }
-//        Intent picture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (picture.resolveActivity(getActivity().getPackageManager()) != null){
-//            startActivityForResult(picture, REQUEST_IMAGE_PICTURE);
-//        }
     }
 
     @Override
@@ -266,27 +238,9 @@ public class MealDetails extends Fragment implements View.OnClickListener{
             String pushId = pushRef.getKey();
             mMeal.setPushId(pushId);
             pushRef.setValue(mMeal);
-//            mealRef.push().setValue(mMeal);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v == saveMealButton){
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//            String uid = user.getUid();
-//            DatabaseReference mealRef = FirebaseDatabase
-//                    .getInstance()
-//                    .getReference(Credentials.FIREBASE_CHILD_MEAL)
-//                    .child(uid);
-//
-//            DatabaseReference pushRef = mealRef.push();
-//            String pushId = pushRef.getKey();
-//            mMeal.setPushId(pushId);
-//            pushRef.setValue(mMeal);
-////            mealRef.push().setValue(mMeal);
-//            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }

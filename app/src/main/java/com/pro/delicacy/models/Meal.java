@@ -18,9 +18,6 @@ public class Meal {
     @SerializedName("strMeal")
     @Expose
     private String strMeal;
-//    @SerializedName("strDrinkAlternate")
-//    @Expose
-//    private Object strDrinkAlternate;
     @SerializedName("strCategory")
     @Expose
     private String strCategory;
@@ -33,9 +30,6 @@ public class Meal {
     @SerializedName("strMealThumb")
     @Expose
     private String strMealThumb;
-//    @SerializedName("strTags")
-//    @Expose
-//    private Object strTags;
     @SerializedName("strYoutube")
     @Expose
     private String strYoutube;
@@ -162,15 +156,6 @@ public class Meal {
     @SerializedName("strSource")
     @Expose
     private String strSource;
-//    @SerializedName("strImageSource")
-//    @Expose
-//    private Object strImageSource;
-//    @SerializedName("strCreativeCommonsConfirmed")
-//    @Expose
-//    private Object strCreativeCommonsConfirmed;
-//    @SerializedName("dateModified")
-//    @Expose
-//    private Object dateModified;
 
     /**
      * No args constructor for use in serialization
@@ -193,9 +178,7 @@ public class Meal {
      * @param strIngredient18
      * @param strIngredient17
      * @param strArea
-//     * @param strCreativeCommonsConfirmed
      * @param strIngredient19
-//     * @param strTags
      * @param idMeal
      * @param strInstructions
      * @param strIngredient1
@@ -216,8 +199,6 @@ public class Meal {
      * @param strMeasure13
      * @param strMeasure10
      * @param strMeasure11
-//     * @param dateModified
-//     * @param strDrinkAlternate
      * @param strSource
      * @param strMeasure9
      * @param strMeasure7
